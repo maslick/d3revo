@@ -7,6 +7,7 @@
     "bootstrap": "*",
     "angular": "*",
     "angular-ladda": "*",
-    "d3": "*"
+    "d3": "*",
+    "chance": "^1.0.0"
   }
 }
