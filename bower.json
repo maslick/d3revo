@@ -1,5 +1,5 @@
 {
-  "name": "WSDL Dependency Diagram",
+  "name": "d3revo",
   "version": "0.0.1",
   "main": "index.html",
   "dependencies": {
@@ -8,6 +8,6 @@
     "angular": "*",
     "angular-ladda": "*",
     "d3": "*",
-    "chance": "^1.0.0"
+    "chance": "*"
   }
 }
