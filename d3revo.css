@@ -19,8 +19,7 @@ path.link {
 
 #tree {
     background: #042029;
-    /*background: #f6f6f6;*/
-    padding: 9.5px;
     font-size: 13px;
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    height: 600px;
 }

@@ -1,9 +1,9 @@
 angular.module('d3revo', ['angular-ladda'])
     .controller('d3revoCtrl', ['$scope', '$http', function ($scope, $http) {
 
-        var margin = {top: 15, right: -5, bottom: 15, left: 250},
+        var margin = {top: -5, right: -5, bottom: -5, left: 250},
             width = 800 - margin.left - margin.right,
-            height = 600 - margin.top - margin.bottom
+            height = 600 - margin.top - margin.bottom,
             root = null,
             i = 0;
 
@@ -18,7 +18,7 @@ angular.module('d3revo', ['angular-ladda'])
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-            .call(d3.behavior.zoom().scaleExtent([0.3, 10]).on("zoom", function(){
+            .call(d3.behavior.zoom().scaleExtent([0.3, 1]).on("zoom", function(){
                 canvas.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }))
             .append("g");
@@ -26,67 +26,20 @@ angular.module('d3revo', ['angular-ladda'])
         canvas.append("rect")
             .attr("class", "overlay")
             .attr("fill", "transparent")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("width", width*10)
+            .attr("height", height*10)
+            .attr("transform", "translate(-" + width*5 + ",-" + height*5 + ")");
 
         d3.json("js/data2.json", function(data) {
-            //root = data;
-            root = createSampleNode();
-            root.children = [];
 
-            root.children.push(createSampleNode());
-            root.children.push(createSampleNode());
-            root.children.push(createSampleNode());
+            root = { name: chance.first()};
+            root.children = createSampleNode(3);
 
             root.x0 = height / 2;
             root.y0 = 0;
 
             update(root);
         });
-
-        /*function update(source) {
-         var nodes = tree.nodes(root).reverse();
-         var links = tree.links(nodes);
-
-         // Normalize for fixed-depth
-         nodes.forEach(function(d) { d.y = d.depth * 180; });
-
-         var node = canvas.selectAll("g.node")
-         .data(nodes)
-         .enter()
-         .append("g")
-         .attr("class", "node")
-         .attr("transform", function(d) {
-         return "translate(" + d.y + "," + d.x + ")";
-         });
-
-         node.append("circle")
-         .attr("r",5)
-         .attr("fill", "lightsteelblue");
-
-         node.append("text")
-         .text(function(d) {return d.name;})
-         .attr("x", function(d){return -10;})
-         .attr("y", function(d) {return 0;})
-         .attr("dy", ".35em")
-         .attr("text-anchor", function(d) { return "end"; })
-         .on("click", function(d) {
-         d.children = [];
-         d.children.push(createSampleNode());
-         update(d);
-         })
-         .style("cursor", function(d) { return "hand";});
-
-         canvas.selectAll(".link")
-         .data(links)
-         .enter()
-         .append("path")
-         .attr("class", "link")
-         .attr("fill", "none")
-         .attr("stroke", "#ADADAD")
-         .attr("d", diagonal)
-
-         }*/
 
         function update(source) {
             var duration = d3.event && d3.event.altKey ? 1000 : 500;
@@ -105,7 +58,15 @@ angular.module('d3revo', ['angular-ladda'])
             var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-                .on("click", function(d) { toggle(d); update(d); });
+                .on("click", function(d) {
+                    if (!d.children && !d._children) {
+                        d.children = createSampleNode(Math.floor(1 + Math.random() * 5));
+                        toggle(d);
+                        update(d);
+                    }
+                    toggle(d);
+                    update(d);
+                });
 
             nodeEnter.append("svg:circle")
                 .attr("r", 1e-6)
@@ -192,8 +153,13 @@ angular.module('d3revo', ['angular-ladda'])
             }
         }
 
-        function createSampleNode() {
-            return { name: chance.first() };
+        function createSampleNode(number) {
+            if (!number) var number = 1;
+            var node = [];
+            for (var i = 0; i < number; i ++) {
+                node.push({name: chance.first()});
+            }
+            return node;
         }
     }]
 );
