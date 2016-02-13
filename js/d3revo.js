@@ -60,7 +60,7 @@ angular.module('d3revo', ['angular-ladda'])
                 .attr("class", "node")
                 .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
                 .on("click", function(d) {
-                    if (!d.children && !d._children) {
+                    if (!d.children && !d._children && d.hasChildren) {
                         d.children = createSampleNode(Math.floor(1 + Math.random() * 5));
                         toggle(d);
                         update(d);
@@ -162,7 +162,7 @@ angular.module('d3revo', ['angular-ladda'])
             if (!number) var number = 1;
             var node = [];
             for (var i = 0; i < number; i ++) {
-                node.push({name: chance.first()});
+                node.push({name: chance.first(), hasChildren: chance.bool({likelihood: 40})});
             }
             return node;
         }
