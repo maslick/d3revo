@@ -81,7 +81,8 @@ angular.module('d3revo', ['angular-ladda'])
                 .attr("dy", ".35em")
                 .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
                 .text(function(d) { return d.name; })
-                .style("fill-opacity", 1e-6);
+                .style("fill-opacity", 1e-6)
+                .style("cursor", function(d) { return d.hasChildren ? "hand" : "cursor";})
 
             // Transition nodes to their new position.
             var nodeUpdate = node.transition()
@@ -99,7 +100,7 @@ angular.module('d3revo', ['angular-ladda'])
                 .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
                 .style("fill-opacity", 1)
                 .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-                .style("cursor", function(d) { return "hand";})
+
 
             // Transition exiting nodes to the parent's new position.
             var nodeExit = node.exit().transition()
