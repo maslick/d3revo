@@ -93,9 +93,13 @@ angular.module('d3revo', ['angular-ladda'])
                 .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
 
             nodeUpdate.select("text")
+                .delay(0)
+                .duration(0)
+                .attr("x", function(d) {return d.children || d._children ? -10 : 10;})
+                .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
                 .style("fill-opacity", 1)
                 .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; })
-                .style("cursor", function(d) { return "hand";});
+                .style("cursor", function(d) { return "hand";})
 
             // Transition exiting nodes to the parent's new position.
             var nodeExit = node.exit().transition()
