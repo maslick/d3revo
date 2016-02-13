@@ -19,35 +19,35 @@
 
 </head>
 <body ng-app="d3revo" class="container">
-        <div ng-controller="d3revoCtrl" class="row">
-            <div class="col-xs-12 col-xs-offset-0">
+    <div ng-controller="d3revoCtrl" class="row">
+        <div class="col-xs-12 col-xs-offset-0">
 
-                <p>&nbsp;</p>
+            <p>&nbsp;</p>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="input-group">
-                            <input type="text" ng-model="url" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" ng-click="send()" ladda="loginLoading">Go!</button>
-                            </span>
-                        </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group">
+                        <input type="text" ng-model="url" class="form-control" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" ng-click="send()" ladda="loginLoading">Go!</button>
+                        </span>
                     </div>
                 </div>
-                <p></p>
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="tree"></div>
-                    </div>
-                </div>
-
-                <p></p>
-                <div id="response">
-                    <pre>{{resp}}</pre>
-                </div>
-
             </div>
+            <p></p>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="tree"></div>
+                </div>
+            </div>
+
+            <p></p>
+            <div id="response">
+                <pre>{{resp}}</pre>
+            </div>
+
+        </div>
     </div>
 
 </body>
