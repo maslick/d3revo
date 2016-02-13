@@ -30,16 +30,17 @@ angular.module('d3revo', ['angular-ladda'])
             .attr("height", height*10)
             .attr("transform", "translate(-" + width*5 + ",-" + height*5 + ")");
 
-        d3.json("js/data2.json", function(data) {
 
-            root = { name: chance.first()};
-            root.children = createSampleNode(3);
+        /* CREATE TREE */
+        root = { name: chance.first()};
+        root.children = createSampleNode(3);
 
-            root.x0 = height / 2;
-            root.y0 = 0;
+        root.x0 = height / 2;
+        root.y0 = 0;
+        /* END OF CREATE TREE */
 
-            update(root);
-        });
+        update(root);
+
 
         function update(source) {
             var duration = d3.event && d3.event.altKey ? 1000 : 500;
