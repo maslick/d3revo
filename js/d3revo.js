@@ -37,6 +37,7 @@ angular.module('d3revo', ['angular-ladda', 'ui.select'])
         /* CREATE TREE */
         root = { name: chance.first()};
         $scope.nodelist.push({name: root.name});
+        root.hasChildren = true;
         root.children = createSampleNode(3);
         root.x0 = height / 2;
         root.y0 = 0;
