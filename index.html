@@ -10,31 +10,45 @@
     <script type="text/javascript" src="bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
     <script type="text/javascript" src="bower_components/d3/d3.js"></script>
     <script type="text/javascript" src="bower_components/chance/chance.js"></script>
+    <script type="text/javascript" src="bower_components/ui-select/dist/select.js"></script>
 
-    <script type="text/javascript" src="js/d3revo.js"></script>
-    <link rel="stylesheet" href="d3revo.css" type="text/css" />
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="bower_components/ladda/dist/ladda-themeless.min.css">
+    <link rel="stylesheet" href="bower_components/ui-select/dist/select.css" type="text/css" />
 
+
+    <script type="text/javascript" src="js/d3revo.js"></script>
+    <link rel="stylesheet" href="d3revo.css" type="text/css" />
 </head>
 <body ng-app="d3revo" class="container">
     <div ng-controller="d3revoCtrl" class="row">
         <div class="col-xs-12 col-xs-offset-0">
-
             <p>&nbsp;</p>
+            <div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="input-group">
+                            <ui-select ng-model="nodelistitem.selected" theme="bootstrap" reset-search-input="false">
+                                <ui-select-match class="ui-select-match">
+                                    {{nodelistitem.selected.name}}
+                                </ui-select-match>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="input-group">
-                        <input type="text" ng-model="query" class="form-control" placeholder="Search for ...">
+                                <ui-select-choices repeat='node in nodelist | filter: $select.search' class="ui-select-choices">
+                                    {{node.name}}
+                                </ui-select-choices>
+                            </ui-select>
                         <span class="input-group-btn">
-                            <button class="btn btn-success" type="button" ng-click="findNode(query)" ladda="loginLoading">Go!</button>
+                            <button class="btn btn-success" type="button" ng-click="findNode(nodelistitem.selected.name)" ladda="laddaLoading">Go!</button>
                         </span>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <p></p>
+
+
 
             <div class="row">
                 <div class="col-xs-12">

@@ -23,3 +23,7 @@ path.link {
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     height: 600px;
 }
+
+.ui-select-bootstrap .ui-select-toggle > .caret {
+    visibility: hidden;
+}

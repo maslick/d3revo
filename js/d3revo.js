@@ -1,5 +1,8 @@
-angular.module('d3revo', ['angular-ladda'])
-    .controller('d3revoCtrl', ['$scope', '$http', function ($scope, $http) {
+angular.module('d3revo', ['angular-ladda', 'ui.select'])
+    .controller('d3revoCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+
+        $scope.nodelistitem = {};
+        $scope.nodelist = [];
 
         var margin = {top: -5, right: -5, bottom: -5, left: 250},
             width = 800 - margin.left - margin.right,
@@ -33,8 +36,8 @@ angular.module('d3revo', ['angular-ladda'])
 
         /* CREATE TREE */
         root = { name: chance.first()};
+        $scope.nodelist.push({name: root.name});
         root.children = createSampleNode(3);
-
         root.x0 = height / 2;
         root.y0 = 0;
         /* END OF CREATE TREE */
@@ -180,13 +183,17 @@ angular.module('d3revo', ['angular-ladda'])
         function createSampleNode(number) {
             if (!number) var number = 1;
             var node = [];
+            var name;
             for (var i = 0; i < number; i ++) {
-                node.push({name: chance.first(), hasChildren: chance.bool({likelihood: 40})});
+                name = chance.first();
+                node.push({name: name, hasChildren: chance.bool({likelihood: 40})});
+                $scope.nodelist.push({name: name});
             }
             return node;
         }
 
         $scope.findNode = function(query) {
+            $scope.laddaLoading = true;
             clearFoundNodes(root);
             update(root);
             var paths = searchTree(root,query,[]);
@@ -196,6 +203,9 @@ angular.module('d3revo', ['angular-ladda'])
             else{
                 alert(query +" not found!");
             }
+            $timeout(function () {
+                $scope.laddaLoading = false;
+            }, 300);
         };
 
         function searchTree(obj,search,path){

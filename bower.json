@@ -8,6 +8,7 @@
     "angular": "*",
     "angular-ladda": "*",
     "d3": "*",
-    "chance": "*"
+    "chance": "*",
+    "ui-select": "angular-ui-select#^0.14.2"
   }
 }
