@@ -49,6 +49,23 @@ angular.module('d3revo', ['angular-ladda', 'ui.select'])
         function update(source) {
             var duration = d3.event && d3.event.altKey ? 1000 : 500;
 
+            // compute the new height
+            var levelWidth = [1];
+            var childCount = function(level, n) {
+
+                if(n.children && n.children.length > 0) {
+                    if(levelWidth.length <= level + 1) levelWidth.push(0);
+
+                    levelWidth[level+1] += n.children.length;
+                    n.children.forEach(function(d) {
+                        childCount(level + 1, d);
+                    });
+                }
+            };
+            childCount(0, root);
+            var newHeight = d3.max(levelWidth) * 25; // 20 pixels per line
+            if (newHeight > height) tree = tree.size([newHeight, width]);
+
             // Compute the new tree layout.
             var nodes = tree.nodes(root).reverse();
 
