@@ -7,7 +7,7 @@
     "bootstrap": "*",
     "angular": "*",
     "angular-ladda": "*",
-    "d3": "*",
+    "d3": "^3.5.17",
     "chance": "*",
     "ui-select": "angular-ui-select#^0.14.2"
   }
